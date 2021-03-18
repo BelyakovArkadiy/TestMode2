@@ -26,7 +26,7 @@ public class TestModeTest{
 
     @Test
     void shouldActiveUser() {
-        UserInfo userInfo = DataGenerator.setNewUser("active");
+        UserInfo userInfo = DataGenerator.getNewUser("active");
         $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
         $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
@@ -35,7 +35,7 @@ public class TestModeTest{
 
     @Test
     void shouldBlockedUser() {
-        UserInfo userInfo = DataGenerator.setNewUser("blocked");
+        UserInfo userInfo = DataGenerator.getNewUser("blocked");
         $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
         $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
@@ -45,9 +45,9 @@ public class TestModeTest{
 
     @Test
     void shouldIncorrectPassword() {
-        UserInfo userInfo = DataGenerator.setNewUser("active");
+        UserInfo userInfo = DataGenerator.getNewUser("active");
         $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
-        $("[data-test-id=password] [class = input__control]").setValue(DataGenerator.setNewPassword());
+        $("[data-test-id=password] [class = input__control]").setValue(DataGenerator.getNewPassword());
         $(byText("Продолжить")).click();
         $(withText("Ошибка")).shouldBe(visible,Duration.ofSeconds(5));
 
@@ -55,8 +55,8 @@ public class TestModeTest{
 
     @Test
     void shouldIncorrectLogin() {
-        UserInfo userInfo = DataGenerator.setNewUser("active");
-        $("[data-test-id=login] [class = input__control]").setValue(DataGenerator.setNewLogin());
+        UserInfo userInfo = DataGenerator.getNewUser("active");
+        $("[data-test-id=login] [class = input__control]").setValue(DataGenerator.getNewLogin());
         $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
         $(withText("Ошибка")).shouldBe(visible, Duration.ofSeconds(5));

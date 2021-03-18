@@ -33,7 +33,7 @@ class DataGenerator {
     }
 
 
-    public static UserInfo setNewUser(String status) {
+    public static UserInfo getNewUser(String status) {
         Faker faker = new Faker(new Locale("eng"));
         String login = faker.name().fullName();
         String password = faker.internet().password();
@@ -43,12 +43,12 @@ class DataGenerator {
     }
 
 
-    public static String setNewPassword() {
+    public static String getNewPassword() {
         Faker faker = new Faker(new Locale("eng"));
         return faker.internet().password();
     }
 
-    public static String setNewLogin() {
+    public static String getNewLogin() {
         Faker faker = new Faker(new Locale("eng"));
         return faker.name().fullName();
     }
