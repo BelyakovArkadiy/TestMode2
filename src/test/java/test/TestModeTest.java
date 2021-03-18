@@ -16,32 +16,28 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class TestModeTest{
 
-    User user = new User();
-    Faker faker = new Faker();
+
+
 
     @BeforeEach
     void Setup() {
-        open("http://localhost:9999");
-        faker = new Faker(new Locale("eng"));
-        user = new User();
-
-    }
+        open("http://localhost:9999"); }
 
 
     @Test
     void shouldActiveUser() {
-        RegistrationDto.setActiveUser();
-        $("[data-test-id=login] [class = input__control]").setValue(user.getLogin());
-        $("[data-test-id=password] [class = input__control]").setValue(user.getPassword());
+        UserInfo userInfo = DataGenerator.setNewUser("active");
+        $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
+        $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
         $(withText("Личный кабинет")).shouldBe(visible, Duration.ofSeconds(15));
     }
 
     @Test
     void shouldBlockedUser() {
-        RegistrationDto.setBlockedUser();
-        $("[data-test-id=login] [class = input__control]").setValue(user.getLogin());
-        $("[data-test-id=password] [class = input__control]").setValue(user.getPassword());
+        UserInfo userInfo = DataGenerator.setNewUser("blocked");
+        $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
+        $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
         $(withText("Ошибка")).shouldBe(visible,Duration.ofSeconds(5));
 
@@ -49,9 +45,9 @@ public class TestModeTest{
 
     @Test
     void shouldIncorrectPassword() {
-        RegistrationDto.setIncorrectPassword();
-        $("[data-test-id=login] [class = input__control]").setValue(user.getLogin());
-        $("[data-test-id=password] [class = input__control]").setValue(faker.internet().password());
+        UserInfo userInfo = DataGenerator.setNewUser("active");
+        $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
+        $("[data-test-id=password] [class = input__control]").setValue(DataGenerator.setNewPassword());
         $(byText("Продолжить")).click();
         $(withText("Ошибка")).shouldBe(visible,Duration.ofSeconds(5));
 
@@ -59,14 +55,13 @@ public class TestModeTest{
 
     @Test
     void shouldIncorrectLogin() {
-        RegistrationDto.setIncorrectLogin();
-        $("[data-test-id=login] [class = input__control]").setValue(faker.name().fullName());
-        $("[data-test-id=password] [class = input__control]").setValue(user.getPassword());
+        UserInfo userInfo = DataGenerator.setNewUser("active");
+        $("[data-test-id=login] [class = input__control]").setValue(DataGenerator.setNewLogin());
+        $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
         $(withText("Ошибка")).shouldBe(visible, Duration.ofSeconds(5));
 
     }
-
 
 
 }

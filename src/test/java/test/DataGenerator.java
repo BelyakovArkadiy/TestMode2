@@ -11,7 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.Locale;
 
 
-class RegistrationDto {
+class DataGenerator {
 
 
     public static RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -22,7 +22,7 @@ class RegistrationDto {
             .log(LogDetail.ALL)
             .build();
 
-    public static void postUser(User registration) {
+    public static void postUser(UserInfo registration) {
         RestAssured.given()
                 .spec(requestSpecification)
                 .body(registration)
@@ -33,43 +33,24 @@ class RegistrationDto {
     }
 
 
-    public static User setActiveUser() {
+    public static UserInfo setNewUser(String status) {
         Faker faker = new Faker(new Locale("eng"));
         String login = faker.name().fullName();
         String password = faker.internet().password();
-        String status = "active";
-        User registration = new User(login, password, status);
+        UserInfo registration = new UserInfo(login, password, status);
         postUser(registration);
         return registration;
     }
 
-    public static User setBlockedUser() {
-        String login = "Artur Platonov";
-        String password = "Password123";
-        String status = "blocked";
-        User registration = new User(login, password, status);
-        postUser(registration);
-        return registration;
-    }
 
-    public static User setIncorrectPassword() {
+    public static String setNewPassword() {
         Faker faker = new Faker(new Locale("eng"));
-        String login = "Artur Platonov";
-        String password = faker.internet().password();
-        String status = "active";
-        User registration = new User(login, password, status);
-        postUser(registration);
-        return registration;
+        return faker.internet().password();
     }
 
-    public static User setIncorrectLogin() {
+    public static String setNewLogin() {
         Faker faker = new Faker(new Locale("eng"));
-        String login = faker.name().fullName();
-        String password = "Password123";
-        String status = "active";
-        User registration = new User(login, password, status);
-        postUser(registration);
-        return registration;
+        return faker.name().fullName();
     }
 
 
