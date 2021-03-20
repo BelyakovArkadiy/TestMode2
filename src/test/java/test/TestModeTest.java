@@ -39,7 +39,7 @@ public class TestModeTest{
         $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
         $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
-        $(withText("Ошибка")).shouldBe(visible,Duration.ofSeconds(5));
+        $(withText("Пользователь заблокирован")).shouldBe(visible,Duration.ofSeconds(5));
 
     }
 
@@ -49,7 +49,7 @@ public class TestModeTest{
         $("[data-test-id=login] [class = input__control]").setValue(userInfo.getLogin());
         $("[data-test-id=password] [class = input__control]").setValue(DataGenerator.getNewPassword());
         $(byText("Продолжить")).click();
-        $(withText("Ошибка")).shouldBe(visible,Duration.ofSeconds(5));
+        $(withText("Неверно указан логин или пароль")).shouldBe(visible,Duration.ofSeconds(5));
 
     }
 
@@ -59,7 +59,7 @@ public class TestModeTest{
         $("[data-test-id=login] [class = input__control]").setValue(DataGenerator.getNewLogin());
         $("[data-test-id=password] [class = input__control]").setValue(userInfo.getPassword());
         $(byText("Продолжить")).click();
-        $(withText("Ошибка")).shouldBe(visible, Duration.ofSeconds(5));
+        $(withText("Неверно указан логин или пароль")).shouldBe(visible, Duration.ofSeconds(5));
 
     }
 
