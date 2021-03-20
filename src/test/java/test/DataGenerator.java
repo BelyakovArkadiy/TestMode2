@@ -13,6 +13,10 @@ import java.util.Locale;
 
 class DataGenerator {
 
+    private static Faker faker = new Faker(new Locale("en"));
+
+    public DataGenerator() {
+    }
 
     public static RequestSpecification requestSpecification = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
@@ -34,7 +38,7 @@ class DataGenerator {
 
 
     public static UserInfo getNewUser(String status) {
-        Faker faker = new Faker(new Locale("eng"));
+
         String login = faker.name().fullName();
         String password = faker.internet().password();
         UserInfo registration = new UserInfo(login, password, status);
@@ -44,12 +48,12 @@ class DataGenerator {
 
 
     public static String getNewPassword() {
-        Faker faker = new Faker(new Locale("eng"));
+
         return faker.internet().password();
     }
 
     public static String getNewLogin() {
-        Faker faker = new Faker(new Locale("eng"));
+
         return faker.name().fullName();
     }
 
