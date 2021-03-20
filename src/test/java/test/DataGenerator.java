@@ -15,7 +15,7 @@ class DataGenerator {
 
     private static Faker faker = new Faker(new Locale("en"));
 
-    public DataGenerator() {
+    private DataGenerator() {
     }
 
     public static RequestSpecification requestSpecification = new RequestSpecBuilder()
